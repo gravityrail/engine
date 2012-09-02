@@ -23,7 +23,6 @@ module Locomotive
     index [[:site_id, Mongo::ASCENDING], [:local_path, Mongo::ASCENDING]]
 
     ## callbacks ##
-    before_validation :check_for_folder_changes
     before_validation :store_plain_text
     before_validation :sanitize_folder
     before_validation :build_local_path
@@ -154,19 +153,6 @@ module Locomotive
         else
           path
         end
-      end
-    end
-
-    def check_for_folder_changes
-      # https://github.com/jnicklas/carrierwave/issues/330
-      # https://github.com/jnicklas/carrierwave-mongoid/issues/23
-      if self.persisted? && self.folder_changed? && !self.source_filename_changed?
-        # a simple way to rename a file
-        old_asset         = self.class.find(self._id)
-        file              = old_asset.source.file
-        file.content_type = File.mime_type?(file.path) if file.content_type.nil?
-        self.source       = file
-        self.changed_attributes['source_filename'] = nil # delete the old file
       end
     end
 

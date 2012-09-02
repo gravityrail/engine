@@ -2,7 +2,7 @@ module Locomotive
   class Page
 
     include Locomotive::Mongoid::Document
-
+    
     ## Extensions ##
     include Extensions::Page::Tree
     include Extensions::Page::EditableElements
@@ -12,6 +12,10 @@ module Locomotive
     include Extensions::Page::Redirect
     include Extensions::Page::Listed
     include Extensions::Shared::Seo
+
+    ## analytics ##
+    include ::Mongoid::Tracking
+    track :visits
 
     ## fields ##
     field :title,               :localize => true

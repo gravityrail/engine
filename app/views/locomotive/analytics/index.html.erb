@@ -1,0 +1,71 @@
+<div>
+  <div style="float: left;">
+  <h2>Site Views</h2>
+  <p>Visits Today: <strong><%= @site.visits.today %></strong></p>
+  Last 7 days
+  <div id="site_views_graph" style="width: 400px; height: 200px;"></div>
+  <table>
+    <tr><th>Page</th><th>Today</th><th>Trend</th></tr>
+    <% @site.pages.where(:slug.ne => "content_type_template").each do |page| %>
+      <tr><td><%= page.slug %></td><td><%= page.visits.today %></td>
+        <td>
+          <div class="sparkline" data-sparkline="<%= page.visits.last_days(7).reverse.inspect %>"></div>
+        </td>  
+      </tr>
+    <% end %>
+  </table>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      //render chart data
+      var days = <%= (-6..0).to_a.reverse.inspect %>;
+      var visits = <%= @site.visits.last_days(7).reverse.inspect %>;
+      var r = Raphael('site_views_graph');
+      var lines = r.linechart(20, 20, 360, 160, days,[visits], { nostroke: false, axis: "0 0 1 1", axisxstep: 1, symbol: "circle", smooth: false }).hoverColumn(function () {
+          this.tags = r.set();
+
+          for (var i = 0, ii = this.y.length; i < ii; i++) {
+              this.tags.push(r.tag(this.x, this.y[i], this.values[i] + " visits", 160, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
+          }
+      }, function () {
+          this.tags && this.tags.remove();
+      });
+      
+      $('.sparkline').each(function(){
+        var data = $(this).data('sparkline');
+        console.log(data);
+        //var el = $("<div style='width: 200px; height: 25px; border: 1px solid black;'>hey</div>");
+        //$(this).append(el);
+        $(this).css({width: "200px", height: "25px"});
+        var raphael = Raphael(this);
+        var sparkline = raphael.linechart(0,0,200,25,days,[data],{nostroke: false});
+        console.log(sparkline);
+      });
+    });
+  </script>
+</div>
+
+<div style="float: left;">
+  <h2>Video Views</h2>
+  <p>Visits Today: <strong><%= @site.visits.today %></strong></p>
+  Last 7 days
+  <div id="graph" style="width: 400px; height: 200px;"></div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      //render chart data
+      var days = <%= (1..7).to_a.inspect %>;
+      var visits = <%= @site.visits.last_days(7).inspect %>;
+      var r = Raphael('graph');
+      var lines = r.linechart(20, 20, 360, 160, [days],[visits], { nostroke: false, axis: "0 0 1 1", axisxstep: 1, symbol: "circle", smooth: false }).hoverColumn(function () {
+          this.tags = r.set();
+
+          for (var i = 0, ii = this.y.length; i < ii; i++) {
+              this.tags.push(r.tag(this.x, this.y[i], this.values[i] + " visits", 160, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
+          }
+      }, function () {
+          this.tags && this.tags.remove();
+      });
+    });
+  </script>
+</div>
+<div class="clearfix"></div>
+</div>

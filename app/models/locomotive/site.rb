@@ -9,6 +9,10 @@ module Locomotive
     include Extensions::Shared::Seo
     include Extensions::Site::Locales
 
+    ## analytics ##
+    include ::Mongoid::Tracking
+    track :visits
+
     ## fields ##
     field :name
     field :robots_txt

@@ -21,6 +21,8 @@ require 'RMagick'
 require 'cells'
 require 'sanitize'
 require 'unidecoder'
+require 'trackoid'
+require 'graphael-rails'
 
 require 'compass'
 require 'codemirror/rails'

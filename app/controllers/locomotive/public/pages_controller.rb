@@ -15,6 +15,8 @@ module Locomotive
       before_filter :set_toolbar_locale, :only => :show_toolbar
 
       before_filter :set_locale, :only => [:show, :edit]
+      
+      after_filter :track_visits, :only => [:show]
 
       def show_toolbar
         render :layout => false
@@ -41,6 +43,11 @@ module Locomotive
         ::I18n.locale = ::Mongoid::Fields::I18n.locale
 
         self.setup_i18n_fallbacks
+      end
+      
+      def track_visits
+        @page.visits.inc
+        @page.site.visits.inc
       end
 
     end

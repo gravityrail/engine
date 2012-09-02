@@ -28,3 +28,7 @@ $locomotive-default-icons-url: image-url("locomotive/menu/icons.png");
 @mixin locomotive-settings-icon($enabled: false) {
   @include locomotive-menu-icon($locomotive-default-icons-url, -32px, 14px, 13px, $enabled, 1px);
 }
+
+@mixin locomotive-analytics-icon($enabled: false) {
+  @include locomotive-menu-icon($locomotive-default-icons-url, -80px, 14px, 13px, $enabled, 1px);
+}

@@ -64,7 +64,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'actionmailer-with-request',       '~> 0.3.0'
 
   s.add_dependency 'SystemTimer' if RUBY_VERSION =~ /1.8/
-
+  s.add_dependency 'graphael-rails',                  '~> 0.1.4'
+  s.add_dependency 'trackoid',                        '~> 0.3.8'
+  
   s.files        = Dir[ 'Gemfile',
                         '{app}/**/*',
                         '{config}/**/*',

@@ -23,6 +23,8 @@ Locomotive::Engine.routes.draw do
   resources :snippets
 
   resources :sites
+  
+  get "analytics" => "analytics#index"
 
   resource :current_site, :controller => 'current_site'
 

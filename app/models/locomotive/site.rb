@@ -19,6 +19,7 @@ module Locomotive
 
     ## associations ##
     references_many :pages,           :class_name => 'Locomotive::Page',          :validate => false
+    references_many :videos,          :class_name => 'Locomotive::Video',         :dependent => :destroy, :validate => false
     references_many :snippets,        :class_name => 'Locomotive::Snippet',       :dependent => :destroy, :validate => false
     references_many :theme_assets,    :class_name => 'Locomotive::ThemeAsset',    :dependent => :destroy, :validate => false
     references_many :content_assets,  :class_name => 'Locomotive::ContentAsset',  :dependent => :destroy, :validate => false

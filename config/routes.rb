@@ -26,6 +26,11 @@ Locomotive::Engine.routes.draw do
   
   get "analytics" => "analytics#index"
 
+  resources :videos
+  
+  # for notifications that our videos have been transcoded
+  post "zencoder-callback" => "zencoder_callback#create", :as => "zencoder_callback"
+
   resource :current_site, :controller => 'current_site'
 
   resources :accounts

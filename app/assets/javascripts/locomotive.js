@@ -17,6 +17,7 @@
 //= require codemirror/modes/xml
 //= require codemirror/modes/htmlmixed
 //= require locomotive/vendor
+//= require uploadify/jquery.uploadify
 //= require ./locomotive/application
 
 $(document).ready(function() {

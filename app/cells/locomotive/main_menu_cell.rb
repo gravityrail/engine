@@ -7,6 +7,7 @@ module Locomotive
       add :contents,  :url => pages_url
       add :settings,  :url => edit_current_site_url
       add :analytics,  :url => analytics_url
+      add :videos,  :url => videos_url
     end
 
   end

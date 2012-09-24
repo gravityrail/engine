@@ -5,6 +5,7 @@
   li.contents { @include locomotive-contents-icon; }
   li.settings { @include locomotive-settings-icon; }
   li.analytics { @include locomotive-analytics-icon; }
+  li.videos { @include locomotive-videos-icon; }
 }
 
 body.contents {
@@ -48,7 +49,19 @@ body.analytics {
   }
 }
 
+body.videos {
+  #menu li.videos {
+    // @include locomotive-blue-entry;
+    // @include locomotive_black_menu;
+    @include locomotive-red-entry;
+    @include locomotive-videos-icon(true);
+  }
 
+  #submenu {
+    //@include locomotive-blue-submenu;
+    @include locomotive-red-submenu;
+  }
+}
 
 // @import "helpers";
 //

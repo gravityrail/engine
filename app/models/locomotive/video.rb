@@ -11,6 +11,9 @@ module Locomotive
     
     include Locomotive::Mongoid::Document
     field :file_name
+    field :title
+    field :description
+    field :copyright
     field :original_url
     field :standard_url
     field :standard_zencoder_output_id
@@ -22,13 +25,22 @@ module Locomotive
     belongs_to :site, :class_name => 'Locomotive::Site'
     index :site_id
     
+    scope :processed, where(:standard_processed => true, :mobile_processed => true)
+    scope :processing, any_of({:standard_processed => false}, {:mobile_processed => false})
+    
     def processed!(format)
       self.send("#{format}_processed=", true)
       self.save(:validate => false)
     end
     
+    before_create :set_title_from_file_name
+    def set_title_from_file_name
+      self.title ||= self.file_name
+    end
+    
     after_create :zencode
     def zencode
+      return true unless self.original_url
       
       input = original_url.gsub('http://s3.amazonaws.com/', 's3://') # url format: s3://bucket/path/to/file.avi
       base_url = input.gsub(/[^\/]*$/, '') # trim non-path trailing chars, i.e. filename

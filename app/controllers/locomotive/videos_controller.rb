@@ -93,7 +93,7 @@ module Locomotive
       end
     
       def upload_path
-        "sites/#{current_site.subdomain}"
+        "sites/#{current_site.id.to_s}/videos"
       end
       
       def bucket_url

@@ -11,9 +11,15 @@ module Locomotive
       end
  
       json = JSON.parse(zencoder_response)
+      
+      Rails.logger.warn "parsing zencoder response:"
+      Rails.logger.warn json.inspect
+      
       output_id = json["output"]["id"]
       job_state = json["output"]["state"]
       format = json["output"]["label"].to_sym
+      
+      
  
       video = Locomotive::Video.find(:"#{format}_zencoder_output_id" => output_id)
       if job_state == "finished" && video

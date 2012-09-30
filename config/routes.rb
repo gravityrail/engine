@@ -86,7 +86,7 @@ Rails.application.routes.draw do
   end
   
   # for notifications that our videos have been transcoded
-  post "zencoder-callback" => "locomotive/zencoder_callback#create", :as => "zencoder_callback"
+  post "/zencoder-callback" => "locomotive/zencoder_callback#create", :as => "zencoder_callback"
 
   # sitemap
   match '/sitemap.xml'  => 'locomotive/public/sitemaps#show', :format => 'xml'

@@ -1,9 +1,13 @@
+<% content_for :head do %>
+  <link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
+  <script src="http://vjs.zencdn.net/c/video.js"></script>
+<% end %>
 <p><%= link_to "&laquo; Video Listing".html_safe, videos_path %></p>
 
 <h2>Standard</h2>
 <% if @video.standard_url.present? && @video.standard_processed? %>
-  <video width="640" height="480" controls="controls" preload="preload">
-    <source src="<%= @video.standard_url %>" type="video/mp4; codecs="avc1.42E01E, mp4a.40.2"">
+  <video width="640" height="480" class="video-js vjs-default-skin" controls="controls" preload="preload">
+    <source src="<%= @video.standard_url %>" type="video/mp4">
   </video>
 <% else %>
   <p>Please be patient while we process this video</p>
@@ -11,8 +15,8 @@
 
 <h2>Mobile</h2>
 <% if @video.mobile_url.present? && @video.mobile_processed? %>
-  <video width="320" height="240" controls="controls" preload="preload">
-    <source src="<%= @video.mobile_url %>" type="video/mp4; codecs="avc1.42E01E, mp4a.40.2"">
+  <video width="320" height="240" class="video-js vjs-default-skin" controls="controls" preload="preload">
+    <source src="<%= @video.mobile_url %>" type="video/mp4">
   </video>
 <% else %>
   <p>Please be patient while we process this video</p>

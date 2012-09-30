@@ -1,33 +1,47 @@
 <h2>Upload your Video</h2>
 <div id="video_attachment"></div>
-<%= link_to "Video Listing", videos_path %>
- 
- 
+<p>Do not close this page while your files are uploading.</p><p>Your files will take a few minutes to be ready once they're uploaded.</p>
+<p><%= link_to "Video Listing", videos_path %></p>
 <script type="text/javascript">
   $(function() {
     <% session_key = Rails.application.config.session_options[:key] %>
-    var uploadify_script_data = {};
-    var csrf_token = $('meta[name=csrf-token]').attr('content');
-    var csrf_param = $('meta[name=csrf-param]').attr('content');
- 
-    uploadify_script_data[csrf_param] = csrf_token;
-    uploadify_script_data['<%= session_key %>'] = '<%= cookies[session_key] %>';
+    var uploadify_script_data = {
+      'AWSAccessKeyId': '<%= @aws_access_key %>',
+      'key': '<%= @key %>',
+      'acl': '<%= @acl %>',
+      'policy': '<%= @s3_policy %>',
+      'signature': '<%= @s3_signature %>'
+    };
  
     $('#video_attachment').uploadify({
       swf       : '<%= asset_path("uploadify/uploadify.swf") %>',
-      uploader  : '<%= videos_path %>',
-//      script    : '<%= videos_path %>',
+      uploader  : '<%= @bucket_url %>',
+      debug     : true,
+      fileObjName : 'file',
+      folder    : '<%= @upload_path %>',
       wmode     : 'transparent',
       cancelImg : '<%= asset_path("uploadify/uploadify-cancel.png") %>',
-      fileDataName    : 'attachment',
+      scriptAccess:'always',
       formData  : uploadify_script_data,
       auto      : true,
       buttonText : 'Browse',
-      onAllComplete : function(event, data){
-        alert("Success!  Please be patient while the video processes.");
+      onUploadSuccess : function(file, data, response){
+        //alert("Success!  Please be patient while the video processes.");
+        var file_name = file.name;
+        var original_url = '<%= @bucket_url %><%= @key %>'.replace('${filename}', file_name);
+        
+        $.post('<%= videos_path %>', {video: {file_name: file_name, original_url: original_url}},
+          function(data) {
+            console.log("uploaded");
+            console.log(data);
+          }
+        );
       },
-      onError: function(event, ID, fileObj, errorObj){
-        alert("There was an error with the file you tried uploading.\n Please verify that it is the correct type.")
+      onUploadError: function(file, errorCode, errorMessage, errorString){
+        //alert("There was an error with the file you tried uploading.\n Please verify that it is the correct type.");
+        console.log(errorCode);
+        console.log(errorMessage);
+        console.log(errorString);
       }
     });
   });

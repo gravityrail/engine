@@ -1,6 +1,18 @@
-<% if @video.attachment_url.present? && @video.processed? %>
-  <video width="380" height="240" controls="controls" preload="preload">
-    <source src="<%= @video.attachment.url %>" type="video/mp4; codecs="avc1.42E01E, mp4a.40.2"">
+<p><%= link_to "&laquo; Video Listing".html_safe, videos_path %></p
+
+<h2>Standard</h2>
+<% if @video.standard_url.present? && @video.standard_processed? %>
+  <video width="640" height="480" controls="controls" preload="preload">
+    <source src="<%= @video.standard_url %>" type="video/mp4; codecs="avc1.42E01E, mp4a.40.2"">
+  </video>
+<% else %>
+  <p>Please be patient while we process this video</p>
+<% end %>
+
+<h2>Mobile</h2>
+<% if @video.mobile_url.present? && @video.mobile_processed? %>
+  <video width="320" height="240" controls="controls" preload="preload">
+    <source src="<%= @video.mobile_url %>" type="video/mp4; codecs="avc1.42E01E, mp4a.40.2"">
   </video>
 <% else %>
   <p>Please be patient while we process this video</p>

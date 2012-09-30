@@ -28,9 +28,6 @@ Locomotive::Engine.routes.draw do
 
   resources :videos
   
-  # for notifications that our videos have been transcoded
-  post "zencoder-callback" => "zencoder_callback#create", :as => "zencoder_callback"
-
   resource :current_site, :controller => 'current_site'
 
   resources :accounts
@@ -87,6 +84,9 @@ Rails.application.routes.draw do
 
     end
   end
+  
+  # for notifications that our videos have been transcoded
+  post "zencoder-callback" => "zencoder_callback#create", :as => "zencoder_callback"
 
   # sitemap
   match '/sitemap.xml'  => 'locomotive/public/sitemaps#show', :format => 'xml'

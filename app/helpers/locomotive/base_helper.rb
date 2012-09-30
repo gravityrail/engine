@@ -47,7 +47,7 @@ module Locomotive
     def local_action_button(text, url, options = {})
       text = text.is_a?(Symbol) ? t(".#{text}") : text
       link_to(url, options) do
-        content_tag(:em, escape_once('&nbsp;')) + text
+        content_tag(:em, escape_once(' ')) + text
       end
     end
 

@@ -1,0 +1,7 @@
+<% content_for :submenu do %>
+  <%= submenu_entry 'Videos', videos_path %>
+<% end %>
+
+<% content_for :actions do %>
+  <div class="action"><%= link_to content_tag(:em) + content_tag(:span, "New Video"), new_video_path, :class => "button" %></div>
+<% end %>

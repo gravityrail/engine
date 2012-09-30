@@ -1,0 +1,17 @@
+<%= render :partial => 'menu' %>
+<% content_for :buttons do %>
+  <%= local_action_button(:show, edit_video_path(@video), :class => 'show') %>
+<% end %>
+
+<%= semantic_form_for @video, :url => video_url(@video), :html => { :multipart => true } do |form| %>
+  <%= form.inputs "Basic Information" do %>
+    <%= form.input :title %>
+    <%= form.input :description, :as => :text %>
+  <% end %>
+  
+  <div id="local-actions-bottom-bar">
+    <p>
+      <%= submit_tag "Save" %>
+    </p>
+  </div>
+<% end %>

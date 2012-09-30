@@ -1,7 +1,7 @@
-<h2>Upload your Video</h2>
+<%= render :partial => 'menu' %>
+
 <div id="video_attachment"></div>
 <p>Do not close this page while your files are uploading.</p><p>Your files will take a few minutes to be ready once they're uploaded.</p>
-<p><%= link_to "Video Listing", videos_path %></p>
 <script type="text/javascript">
   $(function() {
     <% session_key = Rails.application.config.session_options[:key] %>

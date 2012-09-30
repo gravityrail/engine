@@ -1,7 +1,3 @@
-<div>
-  <h2>Videos</h2>
-  <%= link_to "New Video", new_video_path %><br><br>
-  <% Locomotive::Video.all.each do |video| %>
-    <%= link_to "Video ##{video.id} - #{video.file_name}", video_path(video) %><br>
-  <% end %>
-</div>
+<%= render :partial => 'menu' %>
+<%= render :partial => 'sublist', :locals => {:name => 'Available', :videos => Locomotive::Video.processed}%>
+<%= render :partial => 'sublist', :locals => {:name => 'Processing', :videos => Locomotive::Video.processing}%>

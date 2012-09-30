@@ -17,15 +17,18 @@ module Locomotive
 
     def index
       @videos = current_site.videos
+      @content_for_title = "Videos"
       respond_with(@videos)
     end
 
     def show
       @video = current_site.videos.find(params[:id])
+      @content_for_title = @video.file_name
       respond_with @video
     end
 
     def new
+      @content_for_title = "Upload Video"
       @video = current_site.videos.build
       @bucket_url = bucket_url
       @aws_access_key = aws_access_key
@@ -52,6 +55,7 @@ module Locomotive
 
     def edit
       @video = current_site.videos.find(params[:id])
+      @content_for_title = "Edit #{@video.file_name}"
       respond_with @video
     end
 

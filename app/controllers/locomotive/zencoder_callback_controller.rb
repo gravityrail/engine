@@ -28,7 +28,7 @@ class Locomotive::ZencoderCallbackController < ApplicationController
     job_state = params["output"]["state"]
     format = params["output"]["label"].to_sym
     
-    video = Locomotive::Video.find(:"#{format}_zencoder_output_id" => output_id)
+    video = Locomotive::Video.where(:"#{format}_zencoder_output_id" => output_id).first
     if job_state == "finished" && video
       video.processed!(format)
     end

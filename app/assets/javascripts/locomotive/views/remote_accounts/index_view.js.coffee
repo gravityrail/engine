@@ -1,0 +1,1 @@
+Locomotive.Views.RemoteAccounts ||= {}

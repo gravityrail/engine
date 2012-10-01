@@ -4,7 +4,7 @@ module Locomotive
     
     def index
       @accounts = current_site.remote_accounts
-      @content_for_title = "Remote Accounts"
+      @content_for_title = "Connected Accounts"
       load_accounts
       respond_with(@accounts)
     end

@@ -1,5 +1,5 @@
 <%= render :partial => 'locomotive/videos/menu' %>
-
+<p>Connect your YouTube and Vimeo account for easy syndication of your uploaded videos.</p>
 <%= semantic_form_for @youtube_account, 
   :url => @youtube_account.new_record? ? remote_accounts_path : remote_account_path(@youtube_account), 
   :html => {:class => @youtube_account.new_record? ? '' : 'connected'} do |form| %>

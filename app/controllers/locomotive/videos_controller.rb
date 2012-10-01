@@ -3,7 +3,7 @@ module Locomotive
     require 'base64'
     require 'openssl'
     
-    sections 'videos', 'index'
+    sections 'videos', 'videos'
 
     localized
     
@@ -23,7 +23,7 @@ module Locomotive
 
     def show
       @video = current_site.videos.find(params[:id])
-      @content_for_title = @video.file_name
+      @content_for_title = @video.title
       respond_with @video
     end
 
@@ -55,7 +55,7 @@ module Locomotive
 
     def edit
       @video = current_site.videos.find(params[:id])
-      @content_for_title = "Edit #{@video.file_name}"
+      @content_for_title = "Edit #{@video.title}"
       respond_with @video
     end
 

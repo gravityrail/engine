@@ -1,4 +1,5 @@
 $locomotive-default-icons-url: image-url("locomotive/menu/icons.png");
+$locomotive-video-icon-url: image-url("locomotive/icons/video.png");
 
 @mixin locomotive-menu-icon($url, $where, $width, $height, $enabled: false, $top: 0, $left: 0) {
   em {
@@ -34,5 +35,5 @@ $locomotive-default-icons-url: image-url("locomotive/menu/icons.png");
 }
 
 @mixin locomotive-videos-icon($enabled: false) {
-  @include locomotive-menu-icon($locomotive-default-icons-url, -80px, 14px, 13px, $enabled, 1px);
+  @include locomotive-menu-icon($locomotive-video-icon-url, 0px, 12px, 13px, $enabled);
 }

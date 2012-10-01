@@ -22,6 +22,10 @@ module Locomotive
     field :mobile_zencoder_output_id
     field :mobile_processed, :type => Boolean, :default => false
     
+    ## analytics ##
+    include ::Mongoid::Tracking
+    track :views
+    
     belongs_to :site, :class_name => 'Locomotive::Site'
     index :site_id
     

@@ -12,6 +12,7 @@ module Locomotive
     ## analytics ##
     include ::Mongoid::Tracking
     track :visits
+    track :video_views
 
     ## fields ##
     field :name

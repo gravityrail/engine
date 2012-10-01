@@ -1,13 +1,17 @@
+<% content_for :submenu do %>
+  <%= submenu_entry 'analytics', analytics_path %>
+<% end %>
+
 <div>
   <div style="float: left;">
-  <h2>Site Views</h2>
+  <h2>Site Visits</h2>
   <p>Visits Today: <strong><%= @site.visits.today %></strong></p>
   Last 7 days
   <div id="site_views_graph" style="width: 400px; height: 200px;"></div>
   <table>
     <tr><th>Page</th><th>Today</th><th>Trend</th></tr>
-    <% @site.pages.where(:slug.ne => "content_type_template").each do |page| %>
-      <tr><td><%= page.slug %></td><td><%= page.visits.today %></td>
+    <% @site.pages.where(:slug.ne => "content_type_template").sort {|p1, p2| p2.visits.today <=> p1.visits.today }.each do |page| %>
+      <tr><td><%= link_to page.slug, edit_page_path(page) %></td><td><%= page.visits.today %></td>
         <td>
           <div class="sparkline" data-sparkline="<%= page.visits.last_days(7).reverse.inspect %>"></div>
         </td>  
@@ -46,20 +50,30 @@
 
 <div style="float: left;">
   <h2>Video Views</h2>
-  <p>Visits Today: <strong><%= @site.visits.today %></strong></p>
+  <p>Visits Today: <strong><%= @site.video_views.today %></strong></p>
   Last 7 days
-  <div id="graph" style="width: 400px; height: 200px;"></div>
+  <div id="video_views_graph" style="width: 400px; height: 200px;"></div>
+  <table>
+    <tr><th>Video</th><th>Today</th><th>Trend</th></tr>
+    <% @site.videos.sort {|v1, v2| v2.views.today <=> v1.views.today }.each do |video| %>
+      <tr><td><%= link_to video.title, edit_video_path(video) %></td><td><%= video.views.today %></td>
+        <td>
+          <div class="sparkline" data-sparkline="<%= video.views.last_days(7).reverse.inspect %>"></div>
+        </td>  
+      </tr>
+    <% end %>
+  </table>
   <script type="text/javascript">
     $(document).ready(function(){
       //render chart data
       var days = <%= (1..7).to_a.inspect %>;
-      var visits = <%= @site.visits.last_days(7).inspect %>;
-      var r = Raphael('graph');
+      var visits = <%= @site.video_views.last_days(7).inspect %>;
+      var r = Raphael('video_views_graph');
       var lines = r.linechart(20, 20, 360, 160, [days],[visits], { nostroke: false, axis: "0 0 1 1", axisxstep: 1, symbol: "circle", smooth: false }).hoverColumn(function () {
           this.tags = r.set();
 
           for (var i = 0, ii = this.y.length; i < ii; i++) {
-              this.tags.push(r.tag(this.x, this.y[i], this.values[i] + " visits", 160, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
+              this.tags.push(r.tag(this.x, this.y[i], this.values[i] + " views", 160, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
           }
       }, function () {
           this.tags && this.tags.remove();

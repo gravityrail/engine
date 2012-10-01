@@ -12,6 +12,7 @@ module Locomotive
     respond_to :json, :only => :update
 
     def index
+      @content_for_title = "Analytics"
       @site = current_site
     end
 

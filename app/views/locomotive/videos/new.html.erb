@@ -16,7 +16,9 @@
     $('#video_attachment').uploadify({
       swf       : '<%= asset_path("uploadify/uploadify.swf") %>',
       uploader  : '<%= @bucket_url %>',
-      debug     : true,
+      <% if Rails.env == 'development' %>
+        debug     : true,
+      <% end %>
       fileObjName : 'file',
       folder    : '<%= @upload_path %>',
       wmode     : 'transparent',

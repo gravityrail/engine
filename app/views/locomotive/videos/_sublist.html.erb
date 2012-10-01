@@ -7,7 +7,7 @@
         <strong><%= link_to "Video ##{video.id} - #{video.file_name}", video_path(video) %></strong>
         <div class="more">
           <span class="date">Created at <%= video.created_at %></span>
-          <%= link_to 'x', video_path(video), :method => :destroy, :data => { :confirm => t('locomotive.messages.confirm') }, :class=>"remove" %>
+          <%= link_to 'x', video_path(video), :method => :delete, :data => { :confirm => t('locomotive.messages.confirm') }, :class=>"remove" %>
         </div>
       </li>
     <% end %>

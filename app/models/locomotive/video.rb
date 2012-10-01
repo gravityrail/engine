@@ -13,6 +13,8 @@ module Locomotive
     field :file_name
     field :title
     field :description
+    field :keywords
+    field :category
     field :copyright
     field :original_url
     field :standard_url
@@ -23,6 +25,8 @@ module Locomotive
     field :mobile_thumb_url
     field :mobile_zencoder_output_id
     field :mobile_processed, :type => Boolean, :default => false
+    field :youtube_id
+    field :vimeo_id
     
     ## analytics ##
     include ::Mongoid::Tracking
@@ -42,6 +46,50 @@ module Locomotive
     before_create :set_title_from_file_name
     def set_title_from_file_name
       self.title ||= self.file_name
+    end
+    
+    def youtube?
+      self.youtube_id.present?
+    end
+    
+    def youtube_embed
+      youtube_client.my_video(self.youtube_id).embed_html5.html_safe
+    end
+    
+    def youtube_url
+      "http://www.youtube.com/watch?v=#{self.youtube_id}&feature=youtube_gdata_player"
+    end
+    
+    def youtube_client
+      # only use one right now
+      self.site.remote_accounts.youtube.first.try(:client)
+    end
+    private :youtube_client
+    
+    def syndicate_to_youtube
+      require 'open-uri'
+      
+      youtube_client = self.youtube_client 
+      raise "No authorized YouTube accounts" unless youtube_account
+      
+      open(self.original_url.gsub(/\s/, '+')) do |original_file|
+        video = youtube_client.video_upload(original_file, 
+          :title => self.title,
+          :description => self.description, 
+          :category => self.category,
+          :keywords => self.keywords.split(',').map{|kw| kw.chomp})
+
+        self.youtube_id = video.unique_id
+        self.save!
+      end
+    end
+    
+    def remove_from_youtube
+      
+    end
+    
+    def vimeo?
+      self.vimeo_id.present?
     end
     
     after_create :zencode

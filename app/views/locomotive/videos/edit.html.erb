@@ -7,6 +7,8 @@
   <%= form.inputs "Basic Information" do %>
     <%= form.input :title %>
     <%= form.input :description, :as => :text %>
+    <%= form.input :category, :as => :select, :collection => Locomotive::YoutubeAccount::CATEGORIES %>
+    <%= form.input :keywords, :hint => "comma-delimited keywords, e.g. 'cats, board games, cheezles'" %>
   <% end %>
   
   <div id="local-actions-bottom-bar">

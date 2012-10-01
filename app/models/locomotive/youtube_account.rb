@@ -1,6 +1,8 @@
 require 'youtube_it'
 module Locomotive
   class YoutubeAccount < RemoteAccount
+    CATEGORIES = %w(Entertainment Nonprofit Film Autos Music Animals Sports Shortmov Travel Games Videoblog People Comedy News Howto Education Tech Movies Shows Trailers)
+
     include Locomotive::Mongoid::Document
     field :username
     field :password

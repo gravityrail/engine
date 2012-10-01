@@ -28,6 +28,11 @@ Locomotive::Engine.routes.draw do
 
   resources :videos
   
+  resources :remote_accounts do
+    # for authentication callback from vimeo
+    get "callback_vimeo" => "remote_accounts#callback_vimeo", :on => :collection
+  end
+  
   resource :current_site, :controller => 'current_site'
 
   resources :accounts

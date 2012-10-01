@@ -1,0 +1,61 @@
+<%= render :partial => 'locomotive/videos/menu' %>
+
+<%= semantic_form_for @youtube_account, :url => @youtube_account.new_record? ? remote_accounts_path : remote_account_path(@youtube_account), :html => {:class => @youtube_account.new_record? ? '' : 'connected'} do |form| %>
+  <%= form.inputs "YouTube Account" do %>
+    <% if @youtube_account.new_record? %>
+      <li class="input stats">
+        <div style="color: red">Not Connected</div>
+      </li>
+    <% else %>
+      <% profile = @youtube_account.client.profile %>
+      <li class="input stats">
+        <img src="<%= profile.avatar %>" align="left" style="padding: 0px 10px 10px 0px"/>
+        <div style="color: green">Connected</div>
+        <div>Username: <%= link_to profile.username, "http://youtube.com/user/#{profile.username}", :target => "_blank" %></div>
+        <div>Subscribers: <%= number_with_delimiter(profile.subscribers) %></div>
+        <div>Total Views: <%= number_with_delimiter(profile.upload_views) %></div>
+        <div><%= link_to "Download YouTube Insights CSV", profile.insight_uri %></div>
+        <!--<%= profile.inspect %>-->
+      </li>
+    <% end %>
+    <%= form.input :name, :hint => "A nickname for the account, like 'Super TV Channel'" %>
+    <%= form.input :username %>
+    <%= form.input :password %>
+    <% if @youtube_account.new_record? %>
+      <%= form.commit_button "Link Account" %>
+    <% else %>
+      <%= form.commit_button "Update" %>
+      <li class="delete button">
+        <%= link_to 'Disconnect', remote_account_path(@youtube_account), :method => :delete, :data => { :confirm => t('locomotive.messages.confirm') }, :class=>"button" %>
+      </li>
+    <% end %>
+    <div class="clearfix"></div>
+  <% end %>
+<% end %>
+
+<%= semantic_form_for @vimeo_account, :url => @vimeo_account.new_record? ? remote_accounts_path : remote_account_path(@vimeo_account) do |form| %>
+  <%= form.inputs "Vimeo Account" do %>
+    <% if @vimeo_account.new_record? %>
+      <li class="input stats">
+        <div style="color: red">Not Connected</div>
+        <div><%#= link_to "Connect", remote_account_authorize_vimeo_path %></div>
+      </li>
+    <% else %>
+      <li class="input stats">
+        <div style="color: green">Connected</div>
+        <div>Channels: <%= @vimeo_account.channels['channels']['total'] %></div>
+      </li>
+    <% end %>
+    <%= form.input :name, :hint => "A nickname for the account, like 'Super TV Channel'" %>
+    <% if @vimeo_account.new_record? %>
+      <li class="input stats"><p>When you click the button below you will be prompted to authorize Transit at vimeo.com</p></li>
+      <%= form.commit_button "Link Account" %>
+    <% else %>
+      <%= form.commit_button "Update" %>
+      <li class="delete button">
+        <%= link_to 'Disconnect', remote_account_path(@vimeo_account), :method => :delete, :data => { :confirm => t('locomotive.messages.confirm') }, :class=>"button" %>
+      </li>
+    <% end %>
+    <div class="clearfix"></div>
+  <% end %>
+<% end %>

@@ -5,8 +5,30 @@
 @import "locomotive/shared/helpers";
 @import "buttons";
 
+form.formtastic.connected > fieldset > legend {
+  @include background-image(linear-gradient(#abfdb4, #a7eba7));
+}
+
 form.formtastic {
 
+  .buttons {
+    padding: 10px 20px 16px 20px;
+    background: #8b8d9a;
+    border-top: 1px solid #5f6069;
+    
+    @include border-radius(3px);
+    ol {
+      width: auto;
+      border: none;
+      background: transparent;
+      li { float: none !important; }
+    }
+    input[type=submit], button[type=submit] {
+      @include light-button;
+    }
+  }
+  
+  
   fieldset {
     margin-bottom: 20px;
 
@@ -154,6 +176,14 @@ form.formtastic {
       @include box-shadow(rgba(0, 0, 0, 0.4) 0px 1px 0px 0px, rgba(255, 255, 255, 0.5) 0 1px 0 0 inset);
 
       background: #ebedf4;
+
+      > li.button {
+        margin: 0;
+        padding: 10px 20px 16px 20px;
+        input[type=submit], button[type=submit], a.button {
+          @include light-button;
+        }
+      }
 
       > li.input {
         margin: 0;

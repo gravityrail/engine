@@ -1,6 +1,9 @@
 <div class="box">
   <h3><%= name %></h3>
   <div class="inner">
+    <% if videos.size == 0 %>
+      <p class="no-items" style="">No videos yet. Click <%= link_to 'here', new_video_url %> to upload one.</p>
+    <% end %>
     <ul>
     <% videos.each do |video| %>
       <li>

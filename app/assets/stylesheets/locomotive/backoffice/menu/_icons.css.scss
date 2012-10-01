@@ -31,7 +31,7 @@ $locomotive-video-icon-url: image-url("locomotive/icons/video.png");
 }
 
 @mixin locomotive-analytics-icon($enabled: false) {
-  @include locomotive-menu-icon($locomotive-default-icons-url, -80px, 14px, 13px, $enabled, 1px);
+  @include locomotive-menu-icon($locomotive-default-icons-url, -80px, 18px, 13px, $enabled, 1px);
 }
 
 @mixin locomotive-videos-icon($enabled: false) {

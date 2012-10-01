@@ -6,7 +6,7 @@
 @import "buttons";
 
 form.formtastic.connected > fieldset > legend {
-  @include background-image(linear-gradient(#abfdb4, #a7eba7));
+  @include background-image(linear-gradient(#abfdb4, #46b398));
 }
 
 form.formtastic {

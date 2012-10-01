@@ -1,6 +1,8 @@
 <%= render :partial => 'locomotive/videos/menu' %>
 
-<%= semantic_form_for @youtube_account, :url => @youtube_account.new_record? ? remote_accounts_path : remote_account_path(@youtube_account), :html => {:class => @youtube_account.new_record? ? '' : 'connected'} do |form| %>
+<%= semantic_form_for @youtube_account, 
+  :url => @youtube_account.new_record? ? remote_accounts_path : remote_account_path(@youtube_account), 
+  :html => {:class => @youtube_account.new_record? ? '' : 'connected'} do |form| %>
   <%= form.inputs "YouTube Account" do %>
     <% if @youtube_account.new_record? %>
       <li class="input stats">
@@ -33,7 +35,9 @@
   <% end %>
 <% end %>
 
-<%= semantic_form_for @vimeo_account, :url => @vimeo_account.new_record? ? remote_accounts_path : remote_account_path(@vimeo_account) do |form| %>
+<%= semantic_form_for @vimeo_account, 
+      :url => @vimeo_account.new_record? ? remote_accounts_path : remote_account_path(@vimeo_account), 
+      :html => {:class => @vimeo_account.new_record? ? '' : 'connected'} do |form| %>
   <%= form.inputs "Vimeo Account" do %>
     <% if @vimeo_account.new_record? %>
       <li class="input stats">

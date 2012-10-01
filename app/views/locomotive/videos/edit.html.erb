@@ -1,6 +1,6 @@
 <%= render :partial => 'menu' %>
 <% content_for :buttons do %>
-  <%= local_action_button(:show, edit_video_path(@video), :class => 'show') %>
+  <%= local_action_button(:show, video_path(@video), :class => 'show') %>
 <% end %>
 
 <%= semantic_form_for @video, :url => video_url(@video), :html => { :multipart => true } do |form| %>

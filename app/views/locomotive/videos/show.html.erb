@@ -9,10 +9,12 @@
   <%= local_action_button(:edit, edit_video_path(@video), :class => 'edit') %>
 <% end %>
 
+<p>To embed this video, use the following tag: {{ video '<%= @video.id.to_s %>' }}</p>
+
 <h2>Standard Version</h2>
 <p>This video will be shown to viewers using desktop browsers.</p>
 <% if @video.standard_url.present? && @video.standard_processed? %>
-  <p><video width="640" height="480" class="video-js vjs-default-skin" controls="controls" preload="preload">
+  <p><video width="640" height="480" class="video-js vjs-default-skin" controls="controls" preload="preload" poster="<%= @video.standard_thumb_url %>">
     <source src="<%= @video.standard_url %>" type="video/mp4">
   </video></p>
 <% else %>
@@ -22,9 +24,24 @@
 <h2>Mobile Version</h2>
 <p>This video will be shown to viewers using mobile phones and tablets.</p>
 <% if @video.mobile_url.present? && @video.mobile_processed? %>
-  <p><video width="320" height="240" class="video-js vjs-default-skin" controls="controls" preload="preload">
+  <p><video width="320" height="240" class="video-js vjs-default-skin" controls="controls" preload="preload" poster="<%= @video.mobile_thumb_url %>">
     <source src="<%= @video.mobile_url %>" type="video/mp4">
   </video></p>
 <% else %>
   <p>Please be patient while we process this video</p>
+<% end %>
+
+<h2>YouTube Version</h2>
+<% if @video.youtube? %>
+<p>This video is <%= link_to 'published', @video.youtube_url %> on YouTube. <a href="#">Remove from YouTube</a></p>
+<%= @video.youtube_embed %>
+<% else %>
+<p>This video is not published on YouTube. <a href="#">Publish to YouTube</a></p>
+<% end %>
+
+<h2>Vimeo Version</h2>
+<% if @video.vimeo? %>
+<p>This video is published on Vimeo. <a href="#">Remove from Vimeo</a></p>
+<% else %>
+<p>This video is not published on Vimeo. <a href="#">Publish to Vimeo</a></p>
 <% end %>

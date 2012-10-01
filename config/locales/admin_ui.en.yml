@@ -54,7 +54,7 @@ en:
       list:
         untranslated: untranslated
       footer:
-        who_is_behind: "LocomotiveCMS is developed by %{development} and designed by <a href=\"http://www.sachagreif.com\">Sacha Greif</a> &mdash; <small>version</small> %{version}"
+        who_is_behind: "Transit Platform is built on LocomotiveCMS, developed by %{development} and designed by <a href=\"http://www.sachagreif.com\">Sacha Greif</a> &mdash; <small>version</small> %{version}"
 
     errors:
       "500":

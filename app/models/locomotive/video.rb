@@ -16,9 +16,11 @@ module Locomotive
     field :copyright
     field :original_url
     field :standard_url
+    field :standard_thumb_url
     field :standard_zencoder_output_id
     field :standard_processed, :type => Boolean, :default => false
     field :mobile_url
+    field :mobile_thumb_url
     field :mobile_zencoder_output_id
     field :mobile_processed, :type => Boolean, :default => false
     
@@ -50,15 +52,18 @@ module Locomotive
       base_url = input.gsub(/[^\/]*$/, '') # trim non-path trailing chars, i.e. filename
 
       # set up the default transcoded URLs for each format
-      FORMATS.each {|format| self.send(:"#{format.name}_url=", original_url.gsub(/[^\/]+$/, "#{format.name}.mp4"))}
+      FORMATS.each {|format| 
+        self.send(:"#{format.name}_url=", original_url.gsub(/[^\/]+$/, "#{format.name}.mp4"))
+        self.send(:"#{format.name}_thumb_url=", original_url.gsub(/[^\/]+$/, "#{format.name}.jpg"))
+      }
       
       # create the zencoder job
       zencoder_response = Zencoder::Job.create({
         :input => input,
         :output => FORMATS.map {|format| zencode_output_for(format, base_url)}
       })
-
-      Rails.logger.warn zencoder_response.inspect
+      
+      puts zencoder_response.inspect
 
       # if we don't hack the dev domain in zencode_output_for, we get something like this:
       # {"errors"=>["The notification url (http://www.transitplatform.dev/zencoder-callback) has an invalid top-level domain: dev", "The notification url (http://www.transitplatform.dev/zencoder-callback) has an invalid top-level domain: dev"]}
@@ -97,7 +102,14 @@ module Locomotive
           :height => format.height,
           :format => "mp4",
           :aspect_mode => "preserve",
-          :public => 1
+          :public => 1,
+          :thumbnails => {
+            :format => "jpg",
+            :number => 1,
+            :base_url => base_url,
+            :filename => "#{format.name}",
+            :public => 1
+          }
         }
       end
   end

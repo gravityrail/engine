@@ -19,10 +19,14 @@ module Locomotive
     field :original_url
     field :standard_url
     field :standard_thumb_url
+    field :standard_width
+    field :standard_height
     field :standard_zencoder_output_id
     field :standard_processed, :type => Boolean, :default => false
     field :mobile_url
     field :mobile_thumb_url
+    field :mobile_width
+    field :mobile_height
     field :mobile_zencoder_output_id
     field :mobile_processed, :type => Boolean, :default => false
     field :youtube_id
@@ -38,8 +42,10 @@ module Locomotive
     scope :processed, where(:standard_processed => true, :mobile_processed => true)
     scope :processing, any_of({:standard_processed => false}, {:mobile_processed => false})
     
-    def processed!(format)
+    def processed!(format, width, height)
       self.send("#{format}_processed=", true)
+      self.send("#{format}_width=", width)
+      self.send("#{format}_height=", height)
       self.save(:validate => false)
     end
     

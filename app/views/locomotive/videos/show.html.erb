@@ -12,10 +12,12 @@
 <div class="box">
   <h3>Information</h3>
   <div class="inner">
-    <p><strong>Filename:</strong> <%= @video.file_name %></p>
-    <p><strong>Description:</strong><br /><%= @video.description %></p>
-    <p><strong>Category:</strong> <%= @video.category %></p>
-    <p><strong>Keywords:</strong> <%= @video.keywords %></p>
+    <img align="left" src="<%= @video.mobile_thumb_url %>" style="margin-right: 10px; width: 150px;"/>
+    <strong>Filename:</strong> <%= @video.file_name %><br />
+    <strong>Description:</strong><br /><%= @video.description %><br />
+    <strong>Category:</strong> <%= @video.category %><br />
+    <strong>Keywords:</strong> <%= @video.keywords %><br />
+    <strong>Duration:</strong> <%= distance_of_time_in_words(Time.now, Time.now + (@video.duration/1000).seconds, true) %><br />
     <p>To embed this video, use the following tag: {% video '<%= @video.id.to_s %>' %}</p>
   </div>
 </div>

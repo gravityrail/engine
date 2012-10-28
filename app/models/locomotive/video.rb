@@ -16,6 +16,7 @@ module Locomotive
     field :keywords
     field :category
     field :copyright
+    field :duration, :type => Integer
     field :original_url
     field :standard_url
     field :standard_thumb_url
@@ -42,10 +43,11 @@ module Locomotive
     scope :processed, where(:standard_processed => true, :mobile_processed => true)
     scope :processing, any_of({:standard_processed => false}, {:mobile_processed => false})
     
-    def processed!(format, width, height)
+    def processed!(format, width, height, duration)
       self.send("#{format}_processed=", true)
       self.send("#{format}_width=", width)
       self.send("#{format}_height=", height)
+      self.duration = duration
       self.save(:validate => false)
     end
     

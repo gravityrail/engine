@@ -44,6 +44,8 @@ Locomotive::Engine.routes.draw do
   resources :theme_assets do
     get :all, :action => 'index', :on => :collection, :defaults => { :all => true }
   end
+  
+  resources :translations
 
   resources :content_assets
 
@@ -68,6 +70,8 @@ Rails.application.routes.draw do
       resources :tokens, :only => [:create, :destroy]
 
       resources :theme_assets
+      
+      resources :translations
 
       resources :content_assets
 

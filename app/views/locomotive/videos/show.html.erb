@@ -9,7 +9,18 @@
   <%= local_action_button(:edit, edit_video_path(@video), :class => 'edit') %>
 <% end %>
 
-<p>To embed this video, use the following tag: {{ video '<%= @video.id.to_s %>' }}</p>
+<div class="box">
+  <h3>Information</h3>
+  <div class="inner">
+    <p><strong>Filename:</strong> <%= @video.file_name %></p>
+    <p><strong>Description:</strong><br /><%= @video.description %></p>
+    <p><strong>Category:</strong> <%= @video.category %></p>
+    <p><strong>Keywords:</strong> <%= @video.keywords %></p>
+    <p>To embed this video, use the following tag: {% video '<%= @video.id.to_s %>' %}</p>
+  </div>
+</div>
+
+<h2>Versions</h2>
 
 <h2>Standard Version</h2>
 <p>This video will be shown to viewers using desktop browsers.</p>

@@ -3,7 +3,7 @@ module Locomotive
 
     def input_wrapping(&block)
       template.content_tag(:li,
-        [template.capture(&block), error_html, image_picker_html, hint_html].join("\n").html_safe,
+        [template.capture(&block), error_html, video_picker_html, image_picker_html, hint_html].join("\n").html_safe,
         wrapper_html_options
       )
     end
@@ -22,6 +22,13 @@ module Locomotive
       return '' if options.delete(:picker) == false
       template.content_tag(:div,
         template.link_to(template.t('locomotive.image_picker.link'), template.theme_assets_path, :id => 'image-picker-link', :class => 'picture'),
+        :class => 'more error-anchor')
+    end
+
+    def video_picker_html
+      return '' if options.delete(:picker) == false
+      template.content_tag(:div,
+        template.link_to(template.t('locomotive.video_picker.link'), template.theme_assets_path, :id => 'video-picker-link', :class => 'video'),
         :class => 'more error-anchor')
     end
 

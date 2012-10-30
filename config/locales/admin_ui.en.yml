@@ -280,6 +280,9 @@ en:
         has_many:
           new_entry: New entry
 
+    video_picker:
+      link: Insert a video into the code
+
     image_picker:
       link: Insert an image into the code
 

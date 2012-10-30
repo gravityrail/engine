@@ -387,6 +387,11 @@ form.formtastic {
                 padding-left: 23px;
                 background: transparent image-url("locomotive/icons/asset_add.png") no-repeat left 1px;
               }
+              
+              &.video {
+                padding-left: 17px;
+                background: transparent image-url("locomotive/icons/video_add.png") no-repeat left 1px;
+              }
             }
           } // .more
 

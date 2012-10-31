@@ -168,6 +168,10 @@ module Locomotive
       end
     end
     
+    def to_liquid
+      Locomotive::Liquid::Drops::Video.new(self)
+    end
+    
     private
       def zencode_output_for(format, base_url)
         {

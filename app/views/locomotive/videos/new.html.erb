@@ -1,7 +1,15 @@
 <%= render :partial => 'menu' %>
 
 <div id="video_attachment"></div>
-<p>Do not close this page while your files are uploading.</p><p>Your files will take a few minutes to be ready once they're uploaded.</p>
+<p>Do not close this page while your files are uploading.<br />
+  Your files will take a few minutes to be ready to play.<br />
+  You can browse your uploaded videos <%= link_to 'here', videos_path %>.</p>
+<div id="video_status_wrapper" style="display: none;">
+  <hr />
+  <h4>Completed</h4>
+  <ul id="video_status_list">
+  </ul>
+</div>
 <script type="text/javascript">
   $(function() {
     <% session_key = Rails.application.config.session_options[:key] %>
@@ -36,6 +44,8 @@
           function(data) {
             console.log("uploaded");
             console.log(data);
+            $('#video_status_wrapper').show();
+            $('#video_status_list').append($('<li>'+file_name+'</li>'));
           }
         );
       },

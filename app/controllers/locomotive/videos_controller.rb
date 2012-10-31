@@ -42,7 +42,13 @@ module Locomotive
     end
     
     def create
-      @video = current_site.videos.build(params[:video])
+      @video = current_site.videos.where(:file_name => params[:video][:file_name]).first
+      if @video
+        # existing video with same file name - replace
+        @video.replace_with(params[:video][:file_name], params[:video][:original_url])
+      else
+        @video = current_site.videos.build(params[:video])
+      end
       
       if @video.save
         render :nothing => true

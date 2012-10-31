@@ -43,6 +43,31 @@ module Locomotive
     scope :processed, where(:standard_processed => true, :mobile_processed => true)
     scope :processing, any_of({:standard_processed => false}, {:mobile_processed => false})
     
+    # reset this video with new content
+    def replace_with(file_name, original_url)
+      raise "Replacement video content must have the same file name" unless file_name == self.file_name
+      self.file_name = file_name
+      self.original_url = original_url
+
+      self.duration = nil
+      
+      # self.standard_url = nil
+      # self.standard_thumb_url = nil
+      self.standard_width = nil
+      self.standard_height = nil
+      self.standard_zencoder_output_id = nil
+      self.standard_processed = false
+      
+      # self.mobile_url = nil
+      # self.mobile_thumb_url = nil
+      self.mobile_width = nil
+      self.mobile_height = nil
+      self.mobile_zencoder_output_id = nil
+      self.mobile_processed = false
+      
+      self.save!
+    end
+    
     def processed!(format, width, height, duration)
       self.send("#{format}_processed=", true)
       self.send("#{format}_width=", width)

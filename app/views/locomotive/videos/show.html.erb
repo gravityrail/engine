@@ -17,7 +17,7 @@
     <strong>Description:</strong><br /><%= @video.description %><br />
     <strong>Category:</strong> <%= @video.category %><br />
     <strong>Keywords:</strong> <%= @video.keywords %><br />
-    <strong>Duration:</strong> <%= distance_of_time_in_words(Time.now, Time.now + (@video.duration/1000).seconds, true) %><br />
+    <strong>Duration:</strong> <%= video_duration(@video) %><br />
     <p>To embed this video, use the following tag: {% video '<%= @video.id.to_s %>' %}</p>
   </div>
 </div>

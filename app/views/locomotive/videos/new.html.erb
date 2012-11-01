@@ -1,5 +1,10 @@
 <%= render :partial => 'menu' %>
-
+<p>Files that you upload will be automatically converted into two formats, suitable for web and mobile. Aspect ratio is preserved within the given size bounds.</p>
+<p><ul>
+  <li><strong>Web:</strong> 640x480 with 790kbps h264 video, 60kbps 2-channel AAC audio</li>
+  <li><strong>Mobile:</strong> 320x240 with 160kbps h264 video, 60kbps 2-channel AAC audio</li>
+</ul></p>
+<p>Click "Browse" below and select one or more videos to upload.</p>
 <div id="video_attachment"></div>
 <p>Do not close this page while your files are uploading.<br />
   Your files will take a few minutes to be ready to play.<br />
@@ -24,9 +29,6 @@
     $('#video_attachment').uploadify({
       swf       : '<%= asset_path("uploadify/uploadify.swf") %>',
       uploader  : '<%= @bucket_url %>',
-      <% if Rails.env == 'development' %>
-        debug     : true,
-      <% end %>
       fileObjName : 'file',
       folder    : '<%= @upload_path %>',
       wmode     : 'transparent',
